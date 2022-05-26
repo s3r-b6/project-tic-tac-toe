@@ -7,27 +7,11 @@ window.onload = () => {
     [' ', ' ', ' '],
     [' ', ' ', ' ']
   ]
-
-  // //factory function
-  // const player = (name) => {
-  //   //dentro se pueden guardar los métodos y las propiedades
-  //   const getTurn = () => {
-  //     console.log('testTurn');
-  //     return true;
-  //   }
-  //   const getScore = () => console.log('testScore')
-  //
-  //   return {
-  //     name,
-  //     getTurn,
-  //     getScore
-  //   }
-  // }
-  //
-  // //init players:
-  // const playerO = player('playerO')
-  // const playerX = player('playerX')
-  // console.log(playerO, playerX)
+  let clearBoard = [
+    [' ', ' ', ' '],
+    [' ', ' ', ' '],
+    [' ', ' ', ' ']
+  ]
 
   function drawBoard() {
     document.querySelector("#display").innerHTML = ''
@@ -68,24 +52,64 @@ window.onload = () => {
         let currValue = gameBoard[row][column]
         if (currValue == ' ') {
           if (turn % 2 == 0) {
-            gameBoard[row][column] = 'O'
+            gameBoard[row][column] = '⭕'
             turn++
-            console.log('turn:' + turn)
           } else if (!turn % 2 == 0) {
-            gameBoard[row][column] = 'X'
+            gameBoard[row][column] = '❌'
             turn++
           }
+          checkWinner()
           drawBoard()
-        } else if (!currValue == 'X' || 'O') {
+        }
+        //si la casilla está tomada, añade la clase taken a la casilla y luego de 650 ms la retira
+        else if (!currValue == 'X' || 'O') {
+          document.querySelector(`.r${row} > .c${column}`).classList.add('taken')
+          setTimeout(() => {
+            document.querySelector(`.r${row} > .c${column}`).classList.remove('taken')
+          }, 650)
           console.log('casilla ocupada')
         }
-
-        console.log(currValue);
-
-
-        //descubre de qué jugador es el turno y coloca
       })
     })
+  }
+
+  function checkWinner() {
+    if ( //rows
+      gameBoard[0][0] == '⭕' && gameBoard[0][1] == '⭕' && gameBoard[0][2] == '⭕' ||
+      gameBoard[1][0] == '⭕' && gameBoard[1][1] == '⭕' && gameBoard[1][2] == '⭕' ||
+      gameBoard[2][0] == '⭕' && gameBoard[2][1] == '⭕' && gameBoard[2][2] == '⭕' ||
+      //columns
+      gameBoard[0][0] == '⭕' && gameBoard[1][0] == '⭕' && gameBoard[2][0] == '⭕' ||
+      gameBoard[0][1] == '⭕' && gameBoard[1][1] == '⭕' && gameBoard[2][1] == '⭕' ||
+      gameBoard[0][2] == '⭕' && gameBoard[1][2] == '⭕' && gameBoard[2][2] == '⭕' ||
+      //diagonal
+      gameBoard[0][2] == '⭕' && gameBoard[1][1] == '⭕' && gameBoard[0][2] == '⭕' ||
+      gameBoard[0][0] == '⭕' && gameBoard[1][1] == '⭕' && gameBoard[2][2] == '⭕'
+    ) {
+      let winner = 'winner: ⭕'
+      console.log(winner)
+
+    } else if ( //rows
+      gameBoard[0][0] == '❌' && gameBoard[0][1] == '❌' && gameBoard[0][2] == '❌' ||
+      gameBoard[1][0] == '❌' && gameBoard[1][1] == '❌' && gameBoard[1][2] == '❌' ||
+      gameBoard[2][0] == '❌' && gameBoard[2][1] == '❌' && gameBoard[2][2] == '❌' ||
+      //columns
+      gameBoard[0][0] == '❌' && gameBoard[1][0] == '❌' && gameBoard[2][0] == '❌' ||
+      gameBoard[0][1] == '❌' && gameBoard[1][1] == '❌' && gameBoard[2][1] == '❌' ||
+      gameBoard[0][2] == '❌' && gameBoard[1][2] == '❌' && gameBoard[2][2] == '❌' ||
+      //diagonal
+      gameBoard[0][2] == '❌' && gameBoard[1][1] == '❌' && gameBoard[0][2] == '❌' ||
+      gameBoard[0][0] == '❌' && gameBoard[1][1] == '❌' && gameBoard[2][2] == '❌'
+    ) {
+      let winner = 'winner: ❌'
+      console.log(winner)
+
+    } else {
+      return;
+    }
+    //pop del ganador
+    console.log('test test test')
+
   }
 
   drawBoard()
