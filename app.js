@@ -43,11 +43,11 @@ window.onload = () => {
     //descubre qué casilla se ha clickado y devuelve la posición
     document.querySelectorAll('.gridContent').forEach((el) => {
       el.addEventListener('click', (e) => {
-        console.log(e.target);
+        // console.log(e.target);
 
         let row = e.target.parentNode.classList[1][1];
         let column = e.target.classList[1][1];
-        console.log(row, column);
+        // console.log(row, column);
 
         //descubre si la casilla está vacía o no
         let currValue = gameBoard[row][column];
@@ -59,7 +59,6 @@ window.onload = () => {
             gameBoard[row][column] = '❌';
             turn++;
           }
-
           checkWinner();
           drawBoard();
         }
@@ -70,7 +69,7 @@ window.onload = () => {
           setTimeout(() => {
             document.querySelector(`.r${row} > .c${column}`).classList.remove('taken');
           }, 650);
-          console.log('casilla ocupada');
+          // console.log('casilla ocupada');
         }
       });
     });

@@ -90,3 +90,12 @@ footer {
   color: transparent;
   text-shadow: 0 0 0 rgb(184, 70, 70);
 }
+
+header, .gridContent {
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
