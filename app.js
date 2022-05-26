@@ -65,7 +65,7 @@ window.onload = () => {
         }
 
         //si la casilla está tomada, añade la clase taken a la casilla y luego de 650 ms la retira
-        else if (currValue == 'X' || currValue == 'O') {
+        else if (currValue == '❌' || currValue == '⭕') {
           document.querySelector(`.r${row} > .c${column}`).classList.add('taken');
           setTimeout(() => {
             document.querySelector(`.r${row} > .c${column}`).classList.remove('taken');
