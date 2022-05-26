@@ -8,34 +8,21 @@ window.onload = () => {
     [' ', ' ', ' '],
     [' ', ' ', ' '],
   ];
-  let clearBoard = [
-    [' ', ' ', ' '],
-    [' ', ' ', ' '],
-    [' ', ' ', ' '],
-  ];
 
   function drawBoard() {
     document.querySelector('#display').innerHTML = '';
-    document.querySelector('#display').innerHTML += `
-    <div id="screen"> texto de prueba </div>
-    <div id="boardContainer">
-      <div class='row r0'>
-        <p class="gridContent c0">${gameBoard[0][0]}</p>
-        <p class="gridContent c1">${gameBoard[0][1]}</p>
-        <p class="gridContent c2">${gameBoard[0][2]}</p>
-      </div>
-      <div class='row r1'>
-        <p class="gridContent c0">${gameBoard[1][0]}</p>
-        <p class="gridContent c1">${gameBoard[1][1]}</p>
-        <p class="gridContent c2">${gameBoard[1][2]}</p>
-      </div>
-      <div class='row r2'>
-        <p class="gridContent c0">${gameBoard[2][0]}</p>
-        <p class="gridContent c1">${gameBoard[2][1]}</p>
-        <p class="gridContent c2">${gameBoard[2][2]}</p>
-      </div>
-    </div>
-      `;
+    for (r in gameBoard) {
+      //console.log('row:' + r)
+      document.querySelector('#display').innerHTML += `
+        <div class='row r${r}'></div> `;
+      document.querySelector("#display > div.row.r0")
+      for (c in gameBoard[r]) {
+        //console.log('col:' + c)
+        document.querySelector(`.r${r}`).innerHTML += `
+            <p class="gridContent c${c}">${gameBoard[r][c]}</p>
+      `
+      }
+    };
     game();
   }
 
@@ -85,7 +72,7 @@ window.onload = () => {
       gameBoard[0][1] == '⭕' && gameBoard[1][1] == '⭕' && gameBoard[2][1] == '⭕' ||
       gameBoard[0][2] == '⭕' && gameBoard[1][2] == '⭕' && gameBoard[2][2] == '⭕' ||
       //diagonal
-      gameBoard[0][2] == '⭕' && gameBoard[1][1] == '⭕' && gameBoard[0][2] == '⭕' ||
+      gameBoard[0][2] == '⭕' && gameBoard[1][1] == '⭕' && gameBoard[2][0] == '⭕' ||
       gameBoard[0][0] == '⭕' && gameBoard[1][1] == '⭕' && gameBoard[2][2] == '⭕'
     ) {
       let winner = 'winner: ⭕';
@@ -100,7 +87,7 @@ window.onload = () => {
       gameBoard[0][1] == '❌' && gameBoard[1][1] == '❌' && gameBoard[2][1] == '❌' ||
       gameBoard[0][2] == '❌' && gameBoard[1][2] == '❌' && gameBoard[2][2] == '❌' ||
       //diagonal
-      gameBoard[0][2] == '❌' && gameBoard[1][1] == '❌' && gameBoard[0][2] == '❌' ||
+      gameBoard[0][2] == '❌' && gameBoard[1][1] == '❌' && gameBoard[2][0] == '❌' ||
       gameBoard[0][0] == '❌' && gameBoard[1][1] == '❌' && gameBoard[2][2] == '❌'
     ) {
       let winner = 'winner: ❌';
@@ -109,11 +96,23 @@ window.onload = () => {
     } else {
       return;
     }
-
     //pop del ganador
     console.log('test test test');
+    document.querySelector('#restartButton')
+
 
   }
+
+  document.querySelector('#restartButton').addEventListener('click', () => {
+    document.querySelector('#display').innerHTML = '';
+    gameBoard = [
+      [' ', ' ', ' '],
+      [' ', ' ', ' '],
+      [' ', ' ', ' ']
+    ];
+    turn = 0;
+    drawBoard();
+  });
 
   drawBoard();
 };
