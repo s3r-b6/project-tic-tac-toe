@@ -77,4 +77,10 @@ footer {
   border: 1px solid grey;
 }
 
+.gridContent:hover{
+  cursor: pointer;
+  background-color: #eee;
+  transition: background-color .3s;
+}
+
 .row>p:nth-child(2) {}
