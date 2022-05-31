@@ -17,10 +17,12 @@ header {
   top: 0;
   height: 6vh;
   width: 100%;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
   text-transform: uppercase;
   text-align: center;
   font-size: 4vh;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 }
 
 footer {
@@ -28,7 +30,8 @@ footer {
   position: fixed;
   bottom: 0;
   height: 10vh;
-  padding-top: 2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
   text-align: center;
   width: 100%;
 }
@@ -82,7 +85,7 @@ footer {
 .gridContent:hover {
   cursor: pointer;
   background-color: #eee;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
 }
 
 .taken {
@@ -90,27 +93,24 @@ footer {
   text-shadow: 0 0 0 rgb(184, 70, 70);
 }
 
-header, .gridContent {
-  user-drag: none;
-  -webkit-user-drag: none;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-}
 
-#restartButton {
-  padding: 1rem;
-  border-radius: 1rem;
-  text-transform: uppercase;
-  font-size: 1rem;
-  color: #ccc;
-  background-color: #0b0c10;
-  border: transparent;
-}
-
-#restartButton:hover {
-  color: #bbb;
-  cursor: pointer;
+#restartButton{
+  width: 7rem;
+  height: 3rem;
   background-color: #1d2029;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  margin: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color:#ccc;
+  text-transform: uppercase;
+}
+
+#restartButton:hover{
+  background-color: #121317;
+  transition: background-color 0.3s;
 }
