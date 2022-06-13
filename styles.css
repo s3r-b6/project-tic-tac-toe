@@ -23,6 +23,7 @@ header {
   text-align: center;
   font-size: 4vh;
   margin-bottom: 4rem;
+  user-select: none;
 }
 
 footer {
@@ -42,6 +43,7 @@ footer {
   margin: auto;
   width: 50vh;
   height: 50vh;
+  user-select: none;
 }
 
 #screen {
@@ -78,7 +80,7 @@ footer {
   border: 1px solid grey;
   transition: color 1s;
   color: transparent;
-  text-shadow: 0 0 0 rgb(40, 44, 78);
+  text-shadow: 0 0 0 #282c4e;
   transition: text-shadow 0.2s;
 }
 
@@ -93,8 +95,7 @@ footer {
   text-shadow: 0 0 0 rgb(184, 70, 70);
 }
 
-
-#restartButton{
+#restartButton {
   width: 7rem;
   height: 3rem;
   background-color: #1d2029;
@@ -106,11 +107,32 @@ footer {
   font-size: 1.5rem;
   cursor: pointer;
   transition: background-color 0.3s;
-  color:#ccc;
+  color: #ccc;
   text-transform: uppercase;
 }
 
-#restartButton:hover{
+#restartButton:hover {
   background-color: #121317;
   transition: background-color 0.3s;
+}
+
+#winnerScreen {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  width: 50%;
+  text-align: center;
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  background-color: #282c4e;
+  margin: auto;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  transition: 0.5s;
+  user-select: none;
+}
+
+#winnerScreen.hidden {
+  opacity: 0;
+  transition: 0.5s;
 }
