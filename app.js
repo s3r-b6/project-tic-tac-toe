@@ -13,6 +13,7 @@ let gameBoard = [
 ];
 
 function drawBoard() {
+  //clear the board and then redraw it
   document.querySelector("#display").innerHTML = "";
   for (r in gameBoard) {
     document.querySelector("#display").innerHTML += `
@@ -28,16 +29,19 @@ function drawBoard() {
   drawPick();
 
   function drawPick() {
-    //find out what box has been clicked and return that
+    //attach an event listener to every box
     document.querySelectorAll(".gridContent").forEach((el) => {
       el.addEventListener("click", handleBoxClick());
     });
 
     function handleBoxClick() {
       return (e) => {
+        //clicking reinitializes the board
+        //find out what box has been clicked and return that
         let row = e.target.parentNode.classList[1][1];
         let column = e.target.classList[1][1];
-        //check if the box is empty or not
+        //check if the box is empty or not and if there is a winner already (game ended)
+        //else, draw ⭕ or ❌ deppending on if turn is even or odd
         let currValue = gameBoard[row][column];
         if (currValue == " " && winner == false) {
           if (turn % 2 == 0) {
@@ -52,6 +56,7 @@ function drawBoard() {
             checkWinner();
           }
         } else if (currValue == "❌" || currValue == "⭕") {
+          //if the box is already taken, show a visual cue to let the user know that is a forbidden move
           document
             .querySelector(`.r${row} > .c${column}`)
             .classList.add("taken");
@@ -65,16 +70,22 @@ function drawBoard() {
         //check for every win-case
         function checkWinner() {
           for (let i = 0; i < gameBoard.length; i++) {
-            checkRow(i);
-            checkColumn(i);
-            checkDiagonal("topLeftToBottomRight");
-            checkDiagonal("topRightToBottomLeft");
-
+            //go case by case; if a case returns true, break the loop
+            if (checkRow(i)) break;
+            if (checkColumn(i)) break;
+            if (checkDiagonal("topLeftToBottomRight")) break;
+            if (checkDiagonal("topRightToBottomLeft")) break;
+            //if it is turn 9 and there is no winner it means there is a tie
+            if (turn == 9 && winner == false) {
+              stopGame(false);
+              return true;
+            }
             function checkRow(row) {
               let rowValues = gameBoard[row];
               let rowWinner = rowValues.join("");
               if (rowWinner == "⭕⭕⭕" || rowWinner == "❌❌❌") {
                 stopGame(rowWinner);
+                return true;
               }
             }
 
@@ -86,6 +97,7 @@ function drawBoard() {
               let columnWinner = columnValues.join("");
               if (columnWinner == "⭕⭕⭕" || columnWinner == "❌❌❌") {
                 stopGame(columnWinner);
+                return true;
               }
             }
 
@@ -103,15 +115,14 @@ function drawBoard() {
               let diagonalWinner = diagonalValues.join("");
               if (diagonalWinner == "⭕⭕⭕" || diagonalWinner == "❌❌❌") {
                 stopGame(diagonalWinner);
+                return true;
               }
-            }
-            //if it is turn 9 and there is no winner it means there is a tie
-            if (turn == 9 && winner == false) {
-              stopGame(false);
             }
           }
 
           function stopGame(who) {
+            //create and append the winnerScreen; set winner flag to true (make it impossible to add new crosses or circles)
+            //add the winnerscreen first as invisible and then remove the .hidden to make it appear with a transition
             let winnerScreen = document.createElement("div");
             winnerScreen.id = "winnerScreen";
             winnerScreen.classList.add("hidden");
@@ -143,6 +154,7 @@ function restartHandler() {
         document.querySelectorAll("#winnerScreen").forEach((el) => el.remove());
       }, 300);
     }
+    //reset variables and recall the mainfunc
     gameBoard = [
       [" ", " ", " "],
       [" ", " ", " "],
